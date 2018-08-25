@@ -1,0 +1,24 @@
+Cliente acessa o tibero por uma conexão ODBC, JDBC... Por um ou mais listeners.
+O Administrador no Tibero possui um acesso exclusivo por um Admin Process chamado Tibero Manager (TBMP), Permitindo que mesmo que todos os Worker Threads disponiveis estejam em uso, o DBA possa acessar o banco. Uma vantagem também é que com esse acesso exclusivo os Acessos feitos pelos clientes não são afetados pelos acessos administrativos.
+
+Existe no Tibero também, um processo que monitora o banco equivalente ao Pmon do Oracle conhecido como Monitor Process (MPROC), o Monitoring Process que analisa a "saude" e comportamento dos processos de segundo plano do banco de dados, interferindo caso haja a necessidade.
+
+Quando uma instância do tibero se inicia o sgbd aloca um numero de work process de acordo com o que foi estabelecido no arquivo de parametro de inicialização do tibero, se um numero máximo de 20 conexões com o tibero é configurada, ao iniciar a instancia do tibero, o sgbd cria 2 work process.
+
+Para um Work Process são alocadas 10 work theads, um work thread conecta um cliente ao banco de dados, dentro de um Work Process existe também alem dos 10 work theads, um control thread esse control thread recebe a solicitação de conexão do listener e procura um work thread disponivel para conexão.
+
+Um Work Threads so será ultilizado assim que um cliente for conectado no banco de dados, os work threads restantes estarão inativos até surgir um novo pedido de conexão. Os Work Threads não usados ficarão em Standby assim não consumindo recursos do servidor.
+
+Alem disso na versão 6 do tibero foi implementado que os Work Process do tibero podem ser Foreground ou Backgound que significa que eles podem ser priorizados de acordo com ser uma tarefa OLAP ou OLTP.
+
+Na versão 6 do tibero outros processos de segundo plano como processos de backup, dbwriter (DBWR), checkpoint, sincronização, recovery(Agent Process (AGNT)) etc, assim como funciona com os Work Process para conexão, também são multiprocess, multithread ou seja, assim como os work process outros processos de segundo plano também são criados assim que a instancia do Tibero se Inicia e vão sendo alocadas para um thread de acordo com a necessidade do banco de dados.
+
+Os processos de entrada e saida no tibero são feitos de forma assincrona.
+
+O tibero também possui em sua arquitetura o Storage Virtualization para o Tibero o TAS - Tibero Active Storage, semelhante ao ASM do Oracle, com o TAS o banco de dados pode trabalhar de forma eficiente tanto na virtualização dos discos como também para fornecer os discos compartilhados para um ambiente de alta disponibilidade.
+
+O Oracle e o Tibero possuem muitas semelhanças entre si devido a Tibero ter focado em deixar a Migração do Oracle para a Tibero de forma facil tanto para migração de um banco para outro quanto para um profissional experiente em Oracle poder facilmente se adaptar ao usar o Tibero.
+
+A Maior diferença entre o Oracle e o Tibero é que o Tibero possui a caracteristica de trabalhar nativamente com a tecnologia de Multi Thread Multi Process em usa instancia.
+
+A Shared Memory possui o Shared Cache o Buffer Cache e um Redo Log Buffer em uma instancia
