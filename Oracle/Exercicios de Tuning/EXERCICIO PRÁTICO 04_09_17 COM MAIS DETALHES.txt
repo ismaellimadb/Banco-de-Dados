@@ -1,0 +1,174 @@
+   EXERCICIO PRÁTICO TUNING DE APLICAÇÕES
+
+ENVIE PARA PRATA@UNI9.PRO.BR  ATÉ 06/09/2017 AS 9:30
+
+
+
+1- RECUPERE O EXERCICIO JÁ FEITO – DONO E ANIMAL
+2 - INSIRA PELO MENOS 20 DONOS E 3 OU 4 ANIMAIS PARA CADA DONO MAS DEIXE PELO MENOS 1 DONO SEM NENHUMA LIGAÇÃO COM ANIMAIS
+3- ATIVE O RASTREAMENTO 
+ SET AUTOTRACE ON
+4 – PARA CADA TÓPICO ABORDADO NA AULA Tuning de Aplicações:
+Elabore pelo menos 1 consulta não muito eficaz e logo a seguir apresente a consulta melhorada, seja através de operadores mais eficaz, seja através de mudança na sequência das condições, etc.
+Crie o seguinte indice: Create index id_nome on Animal(nome_animal);
+TÓPICOS:
+4.1- DESEMPENHO DOS OPERADORES =IGUAL > MAIOR >= MAIOR IGUAL < MENOR <= MENOR IGUAL LIKE E <> DIFERENTE
+4.2- ORDEM DAS COLUNAS NA SELEÇÃO
+4.3- AVALIAÇÃO DE LETRAS MAIÚSCULAS E MINÚSCULAS
+4.4- USANDO AND E OR NA SEQUÊNCIA CERTA
+4.5- USANDO OU NÃO USANDO NOT
+   
+5.Crie pelo menos uma consulta que pesquise o animal por nome e responda se o rastreador mostrou o uso do indice
+
+select * from CLIENTE WHERE NOME_CLIENTE LIKE 'cliente 1%';
+select * from CLIENTE WHERE NOME_CLIENTE <> 'cliente 1';
+select * from CLIENTE WHERE NOME_CLIENTE NOT LIKE '%cliente 1';
+select * from CLIENTE WHERE NOME_CLIENTE between 'cliente 1' and 'cliente 20';
+select * from CLIENTE c full outer join veterinaria v on c.id_dono=v.id_dono WHERE NOME_CLIENTE like '_l%';
+--
+select * from CLIENTE;
+
+Select * from index_nome_animal WHERE RACA_ANIMAL LIKE '_1%';
+
+Create index index_nome_animal on Veterinaria(raca_animal);
+
+SET AUTOTRACE OFF
+
+DESC VETERINARIA;
+DESC CLIENTE;
+
+CREATE INDEX TUDO CLIENTE C INNER JOIN  VETERINARIA V ON C.
+
+SET AUTOTRACE ON STATISTICS;
+
+EXPLAIN PLAN;
+
+/*********************************************************/
+/******* TABELAS ********\
+
+create table veterinaria (
+id_animal number(3) 
+constraint id_animal_pk primary key,
+raca_animal varchar2(10), 
+id_dono number(3)references cliente,
+data_nasci_animal date 
+constraint data_animal_nn not null);
+
+create table cliente (
+nome_cliente varchar2(10) 
+constraint nome_cliente_nn not null, 
+id_dono number(3)
+constraint id_dono_pk primary key);
+
+drop table veterinaria;
+drop table cliente;
+
+insert into veterinaria values(901, 'raca1', 501, '01/01/2002');
+insert into veterinaria values(902, 'raca2', 502, '01/01/2004');
+insert into veterinaria values(903, 'raca3', 503, '01/01/2000');
+insert into veterinaria values(904, 'raca4', 504, '01/01/2003');
+insert into veterinaria values(905, 'raca5', 505, '01/01/2001');
+insert into veterinaria values(906, 'raca6', 506, '01/01/1995');
+insert into veterinaria values(907, 'raca7', 507, '01/01/1997');
+insert into veterinaria values(908, 'raca8', 508, '01/01/1998');
+insert into veterinaria values(909, 'raca9', 509, '01/01/1996');
+insert into veterinaria values(910, 'raca10', 510, '01/01/2002');
+insert into veterinaria values(911, 'raca11', 511, '01/01/2002');
+insert into veterinaria values(912, 'raca12', 512, '01/01/2004');
+insert into veterinaria values(913, 'raca13', 513, '01/01/2000');
+insert into veterinaria values(914, 'raca14', 514, '01/01/2003');
+insert into veterinaria values(915, 'raca15', 515, '01/01/2001');
+insert into veterinaria values(916, 'raca16', 516, '01/01/1995');
+insert into veterinaria values(917, 'raca17', 517, '01/01/1997');
+insert into veterinaria values(918, 'raca18', 518, '01/01/1998');
+insert into veterinaria values(919, 'raca19', 519, '01/01/1996');
+insert into veterinaria values(920, 'raca20', 520, '01/01/2002');
+
+insert into veterinaria values(921, 'raca1', 501, '01/01/2002');
+insert into veterinaria values(922, 'raca2', 502, '01/01/2004');
+insert into veterinaria values(923, 'raca3', 503, '01/01/2000');
+insert into veterinaria values(924, 'raca4', 504, '01/01/2003');
+insert into veterinaria values(925, 'raca5', 505, '01/01/2001');
+insert into veterinaria values(926, 'raca6', 506, '01/01/1995');
+insert into veterinaria values(927, 'raca7', 507, '01/01/1997');
+insert into veterinaria values(928, 'raca8', 508, '01/01/1998');
+insert into veterinaria values(929, 'raca9', 509, '01/01/1996');
+insert into veterinaria values(930, 'raca10', 510, '01/01/2002');
+insert into veterinaria values(931, 'raca11', 511, '01/01/2002');
+insert into veterinaria values(932, 'raca12', 512, '01/01/2004');
+insert into veterinaria values(933, 'raca13', 513, '01/01/2000');
+insert into veterinaria values(934, 'raca14', 514, '01/01/2003');
+insert into veterinaria values(935, 'raca15', 515, '01/01/2001');
+insert into veterinaria values(936, 'raca16', 516, '01/01/1995');
+insert into veterinaria values(937, 'raca17', 517, '01/01/1997');
+insert into veterinaria values(938, 'raca18', 518, '01/01/1998');
+insert into veterinaria values(939, 'raca19', 519, '01/01/1996');
+insert into veterinaria values(940, 'raca20', 520, '01/01/2002');
+
+insert into veterinaria values(941, 'raca1', 501, '01/01/2002');
+insert into veterinaria values(942, 'raca2', 502, '01/01/2004');
+insert into veterinaria values(943, 'raca3', 503, '01/01/2000');
+insert into veterinaria values(944, 'raca4', 504, '01/01/2003');
+insert into veterinaria values(945, 'raca5', 505, '01/01/2001');
+insert into veterinaria values(946, 'raca6', 506, '01/01/1995');
+insert into veterinaria values(947, 'raca7', 507, '22/04/1997');
+insert into veterinaria values(948, 'raca8', 508, '01/01/1998');
+insert into veterinaria values(949, 'raca9', 509, '01/01/1996');
+insert into veterinaria values(950, 'raca10', 510, '01/01/2002');
+insert into veterinaria values(951, 'raca11', 511, '01/01/2002');
+insert into veterinaria values(952, 'raca12', 512, '01/01/2004');
+insert into veterinaria values(953, 'raca13', 513, '01/01/2000');
+insert into veterinaria values(954, 'raca14', 514, '01/01/2003');
+insert into veterinaria values(955, 'raca15', 515, '01/01/2001');
+insert into veterinaria values(956, 'raca16', 516, '01/01/1995');
+insert into veterinaria values(957, 'raca17', 517, '01/01/1997');
+insert into veterinaria values(958, 'raca18', 518, '01/01/1998');
+insert into veterinaria values(959, 'raca19', 519, '01/01/1996');
+insert into veterinaria values(960, 'raca20', 520, '01/01/2002');
+
+
+
+
+
+
+select * from veterinaria order by id_dono;
+select * from cliente order by id_dono;
+
+insert into cliente values('cliente 1', 501);
+insert into cliente values('cliente 2', 502);
+insert into cliente values('cliente 3', 503);
+insert into cliente values('cliente 4', 504);
+insert into cliente values('cliente 5', 505);
+insert into cliente values('cliente 6', 506);
+insert into cliente values('cliente 7', 507);
+insert into cliente values('cliente 8', 508);
+insert into cliente values('cliente 9', 509);
+insert into cliente values('cliente 10', 510);
+insert into cliente values('cliente 11', 511);
+insert into cliente values('cliente 12', 512);
+insert into cliente values('cliente 13', 513);
+insert into cliente values('cliente 14', 514);
+insert into cliente values('cliente 15', 515);
+insert into cliente values('cliente 16', 516);
+insert into cliente values('cliente 17', 517);
+insert into cliente values('cliente 18', 518);
+insert into cliente values('cliente 19', 519);
+insert into cliente values('cliente 20', 520);
+
+---
+insert into cliente values('xcli 1', 201);
+insert into cliente values('xcli 2',202);
+insert into cliente values('xcli 3', 203);
+insert into cliente values('xcli 4', 204);
+insert into cliente values('xcli 5', 205);
+---
+
+
+
+desc veterinaria;
+desc cliente;
+
+
+SET AUTOTRACE ON
+
+Create index index_nome_animal on Veterinaria(raca_animal);
